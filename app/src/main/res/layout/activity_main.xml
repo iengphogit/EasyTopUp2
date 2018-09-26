@@ -44,6 +44,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:foreground="?android:attr/selectableItemBackground"
                     android:id="@+id/take_video"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
@@ -74,6 +75,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:foreground="?android:attr/selectableItemBackground"
                     android:id="@+id/call_service"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
@@ -113,6 +115,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:foreground="?android:attr/selectableItemBackground"
                     android:id="@+id/service_groups"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
@@ -143,6 +146,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:foreground="?android:attr/selectableItemBackground"
                     android:id="@+id/emergency_call"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
