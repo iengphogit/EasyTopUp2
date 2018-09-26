@@ -16,4 +16,6 @@ public class OcrActivity extends AppCompatActivity {
     }
 
 
+
+
 }
