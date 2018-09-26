@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/easy_background"
     android:orientation="vertical"
+    android:id="@+id/root_view"
     tools:context="ocr.avaboy.com.MainActivity">
 
     <RelativeLayout
