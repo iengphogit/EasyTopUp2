@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Easy Top Up</string>
     <string name="easy_topup_kh">EASY TOPUP KH</string>
-    <string name="txt_message">topup code</string>
+    <string name="txt_message">--------</string>
 </resources>
