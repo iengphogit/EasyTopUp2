@@ -2,11 +2,10 @@ package ocr.avaboy.com;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
+import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -25,6 +24,7 @@ public class OcrActivity extends AppCompatActivity {
     private CameraSource mCameraSource;
     private TextView mTextView;
     private static final String TAG = "OcrActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +35,7 @@ public class OcrActivity extends AppCompatActivity {
     }
 
 
+    private String[] txtStr = null;
 
     private void startCameraSource() {
 
@@ -102,18 +103,35 @@ public class OcrActivity extends AppCompatActivity {
                 @Override
                 public void receiveDetections(Detector.Detections<TextBlock> detections) {
                     final SparseArray<TextBlock> items = detections.getDetectedItems();
-                    if (items.size() != 0 ){
-
+                    if (items.size() != 0) {
                         mTextView.post(new Runnable() {
                             @Override
                             public void run() {
                                 StringBuilder stringBuilder = new StringBuilder();
-                                for(int i=0;i<items.size();i++){
+                                String imie = "";
+                                for (int i = 0; i < items.size(); i++) {
                                     TextBlock item = items.valueAt(i);
-                                    stringBuilder.append(item.getValue());
+                                    String str = item.getValue().replace(" ", "");
+                                    str = str.trim();
+                                    stringBuilder.append(str);
                                     stringBuilder.append("\n");
+                                    txtStr = stringBuilder.toString().split("\\r?\\n");
+
+                                    if ((txtStr[i].length()) == 15) {
+                                        if (txtStr[i].matches("[0-9]+")) {
+                                            MediaPlayer mediaPlayer = MediaPlayer.create(OcrActivity.this, R.raw.buttonclick);
+                                            mediaPlayer.start();
+//                                            chkImie = true;
+                                            imie = txtStr[i];
+                                            break;
+                                        } else {
+//                                            chkImie = false;
+                                        }
+                                    }
+
                                 }
-                                mTextView.setText(stringBuilder.toString());
+
+                                mTextView.setText(imie);
                             }
                         });
                     }
