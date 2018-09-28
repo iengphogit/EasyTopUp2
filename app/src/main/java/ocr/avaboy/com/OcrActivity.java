@@ -36,7 +36,7 @@ public class OcrActivity extends AppCompatActivity {
 
 
     private String[] txtStr = null;
-
+    private String imieNumber = null;
     private void startCameraSource() {
 
         //Create the TextRecognizer
@@ -108,7 +108,6 @@ public class OcrActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 StringBuilder stringBuilder = new StringBuilder();
-                                String imie = "";
                                 for (int i = 0; i < items.size(); i++) {
                                     TextBlock item = items.valueAt(i);
                                     String str = item.getValue().replace(" ", "");
@@ -122,7 +121,9 @@ public class OcrActivity extends AppCompatActivity {
                                             MediaPlayer mediaPlayer = MediaPlayer.create(OcrActivity.this, R.raw.buttonclick);
                                             mediaPlayer.start();
 //                                            chkImie = true;
-                                            imie = txtStr[i];
+                                            mTextView.setText(txtStr[i]);
+                                            imieNumber = txtStr[i];
+                                            mCameraSource.stop();
                                             break;
                                         } else {
 //                                            chkImie = false;
@@ -131,7 +132,6 @@ public class OcrActivity extends AppCompatActivity {
 
                                 }
 
-                                mTextView.setText(imie);
                             }
                         });
                     }
