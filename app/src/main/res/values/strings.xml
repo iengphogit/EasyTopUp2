@@ -8,4 +8,5 @@
     <string name="crud_imie_end">IMIE End( # )</string>
     <string name="crud_imie_length">IMIE LENGTH ( 14 )</string>
     <string name="crud_save">SAVE</string>
+    <string name="no_permission_msg">\"You don\'t have permission to access file location\"</string>
 </resources>

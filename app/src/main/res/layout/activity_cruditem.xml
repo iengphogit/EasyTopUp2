@@ -61,6 +61,7 @@
 
 
             <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/crud_image"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginStart="8dp"
@@ -102,6 +103,7 @@
             android:layout_marginTop="8dp">
 
             <EditText
+                android:id="@+id/crud_imie_end"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/crud_imie_end" />
@@ -123,6 +125,7 @@
         </android.support.design.widget.TextInputLayout>
 
         <Button
+            android:id="@+id/crud_save"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/colorPrimaryDark"
