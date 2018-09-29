@@ -84,14 +84,14 @@ public class OcrActivity extends AppCompatActivity {
     }
 
     private void initImageBitmap() {
-
+        companies.clear();
         Bitmap newItem = BitmapFactory.decodeResource(this.getResources(), R.drawable.ic_add_circle_outline_grey_500_36dp);
         Company company = new Company();
         company.setName("New");
         company.setImage(Util.bitmapToByte(newItem));
         companies.add(company);
 
-        Cursor cursor = sqLiteHelper.getData("SELECT *FROM tbl_company");
+        Cursor cursor = sqLiteHelper.getData("SELECT *FROM tbl_company order by id desc");
 
         if (cursor != null && cursor.getCount() > 0) {
 
@@ -112,7 +112,6 @@ public class OcrActivity extends AppCompatActivity {
 
         }
 
-
         notifyDataSetChanged();
     }
 
@@ -120,19 +119,9 @@ public class OcrActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
-    }
-
-
-    private void getData() {
-        Cursor cursor = sqLiteHelper.getData("SELECT *FROM tbl_company");
-        while (cursor.moveToNext()) {
-            String name = cursor.getString(1);
-            String desc = cursor.getString(2);
-            byte[] image = cursor.getBlob(6);
-        }
-        //listViewAdapter.notifyDataSetChanged();
-
+        isPlay = true;
+        cameraCtlr.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause_circle_outline_white_36dp));
+        initImageBitmap();
     }
 
     private void initRecyclerView() {

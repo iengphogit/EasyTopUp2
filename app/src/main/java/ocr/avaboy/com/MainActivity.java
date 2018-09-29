@@ -60,9 +60,9 @@ public class MainActivity extends AppCompatActivity {
         Drawable metfone = getResources().getDrawable(R.drawable.metfone);
 
         if (!(cs.getCount() > 0)) {
-            sqLiteHelper.insertData("Cellcard", "Prefixes: 012, 017, 077, 078, 089, 092, 095, 011, 076, 085, 099, 061, 036, 014", "*123*", "#", 14, imageToByte(drawableToBitmap(cellcard)));
-            sqLiteHelper.insertData("Smart", "Prefixes: 010, 069, 070, 086, 093, 098, 096, 015, 016, 081, 087", "*888*", "#", 14, imageToByte(drawableToBitmap(smart)));
             sqLiteHelper.insertData("Metfone", "Prefixes: 088, 097", "*197*", "#", 14, imageToByte(drawableToBitmap(metfone)));
+            sqLiteHelper.insertData("Smart", "Prefixes: 010, 069, 070, 086, 093, 098, 096, 015, 016, 081, 087", "*888*", "#", 14, imageToByte(drawableToBitmap(smart)));
+            sqLiteHelper.insertData("Cellcard", "Prefixes: 012, 017, 077, 078, 089, 092, 095, 011, 076, 085, 099, 061, 036, 014", "*123*", "#", 14, imageToByte(drawableToBitmap(cellcard)));
         }
 
     }
