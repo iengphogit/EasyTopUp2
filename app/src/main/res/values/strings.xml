@@ -2,4 +2,10 @@
     <string name="app_name">ETU Mobile</string>
     <string name="easy_topup_kh">EASY TOPUP KH</string>
     <string name="txt_message">--------</string>
+    <string name="crud_name">Name</string>
+    <string name="crud_description">Description</string>
+    <string name="crud_imie_start">IMIE Start (*123*)</string>
+    <string name="crud_imie_end">IMIE End( # )</string>
+    <string name="crud_imie_length">IMIE LENGTH ( 14 )</string>
+    <string name="crud_save">SAVE</string>
 </resources>
