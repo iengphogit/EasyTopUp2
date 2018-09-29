@@ -10,14 +10,23 @@
     tools:context="ocr.avaboy.com.MainActivity">
 
     <RelativeLayout
+        android:background="#DE0000"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <ImageView
+            android:layout_margin="8dp"
+            android:src="@mipmap/ic_launcher"
+            android:layout_width="100dp"
+            android:layout_height="40dp" />
+
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="serif-monospace"
-            android:padding="20dp"
+            android:visibility="gone"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_margin="8dp"
+            android:padding="8dp"
             android:text="@string/easy_topup_kh"
             android:textAlignment="center"
             android:textColor="@android:color/white"
@@ -26,6 +35,7 @@
     </RelativeLayout>
 
     <ScrollView
+        android:layout_marginTop="16dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

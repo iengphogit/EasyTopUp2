@@ -3,6 +3,7 @@ package ocr.avaboy.com;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
@@ -29,20 +30,22 @@ import java.util.ArrayList;
 
 public class OcrActivity extends AppCompatActivity {
     private static final String TAG = "OcrActivity";
-
+    private RecyclerViewAdapter recyclerViewAdapter;
     private SurfaceView mCameraView;
     private CameraSource mCameraSource;
     private TextView mTextView;
     private ImageButton cameraCtlr;
 
-    private ArrayList<String> names = new ArrayList<>();
-    private ArrayList<Bitmap> images = new ArrayList<>();
+    private ArrayList<Company> companies = new ArrayList<>();
     private boolean isPlay;
+    private SQLiteHelper sqLiteHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ocr);
+        sqLiteHelper = new SQLiteHelper(this, "phieDB", null, 1);
+
         mCameraView = findViewById(R.id.surfaceView);
         mTextView = findViewById(R.id.text_view);
         cameraCtlr = findViewById(R.id.camera_controller);
@@ -76,35 +79,74 @@ public class OcrActivity extends AppCompatActivity {
 
         startCameraSource();
         initImageBitmap();
+        initRecyclerView();
+
     }
 
     private void initImageBitmap() {
 
         Bitmap newItem = BitmapFactory.decodeResource(this.getResources(), R.drawable.ic_add_circle_outline_grey_500_36dp);
-        names.add("New");
-        images.add(newItem);
+        Company company = new Company();
+        company.setName("New");
+        company.setImage(Util.bitmapToByte(newItem));
+        companies.add(company);
 
-        Bitmap smart = BitmapFactory.decodeResource(this.getResources(), R.drawable.smart);
-        names.add("Smart");
-        images.add(smart);
+        Cursor cursor = sqLiteHelper.getData("SELECT *FROM tbl_company");
 
-        Bitmap cellcard = BitmapFactory.decodeResource(this.getResources(), R.drawable.cellcard);
-        names.add("Cellcard");
-        images.add(cellcard);
+        if (cursor != null && cursor.getCount() > 0) {
 
-        Bitmap metfone = BitmapFactory.decodeResource(this.getResources(), R.drawable.metfone);
-        names.add("Metfone");
-        images.add(metfone);
+            if (cursor.moveToFirst()) {
+                do {
 
-        initRecyclerView();
+                    String name = cursor.getString(1);
+                    String desc = cursor.getString(2);
+                    byte[] image = cursor.getBlob(6);
+                    Company cpn = new Company();
+                    cpn.setName(name);
+                    cpn.setDesc(desc);
+                    cpn.setImage(image);
+                    companies.add(cpn);
+
+                } while (cursor.moveToNext());
+            }
+
+        }
+
+
+        notifyDataSetChanged();
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
+
+
+    private void getData() {
+        Cursor cursor = sqLiteHelper.getData("SELECT *FROM tbl_company");
+        while (cursor.moveToNext()) {
+            String name = cursor.getString(1);
+            String desc = cursor.getString(2);
+            byte[] image = cursor.getBlob(6);
+        }
+        //listViewAdapter.notifyDataSetChanged();
+
     }
 
     private void initRecyclerView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(layoutManager);
-        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(names, images, this);
+        recyclerViewAdapter = new RecyclerViewAdapter(companies, this);
         recyclerView.setAdapter(recyclerViewAdapter);
+    }
+
+    private void notifyDataSetChanged() {
+        if (recyclerViewAdapter != null) {
+            recyclerViewAdapter.notifyDataSetChanged();
+        }
     }
 
 

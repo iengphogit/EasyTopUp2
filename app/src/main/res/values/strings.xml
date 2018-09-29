@@ -9,4 +9,6 @@
     <string name="crud_imie_length">IMIE LENGTH ( 14 )</string>
     <string name="crud_save">SAVE</string>
     <string name="no_permission_msg">\"You don\'t have permission to access file location\"</string>
+    <string name="add_success">Added Successfully!</string>
+    <string name="add_not_success">Insert not success please check name service.</string>
 </resources>

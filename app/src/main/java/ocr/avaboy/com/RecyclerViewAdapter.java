@@ -3,6 +3,11 @@ package ocr.avaboy.com;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,13 +23,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
 
-    private ArrayList<String> names = new ArrayList<>();
-    private ArrayList<Bitmap> images = new ArrayList<>();
+    private ArrayList<Company> companies = new ArrayList<>();
     private Context mContext;
 
-    RecyclerViewAdapter(ArrayList<String> names, ArrayList<Bitmap> images, Context mContext) {
-        this.names = names;
-        this.images = images;
+    RecyclerViewAdapter(ArrayList<Company> companyArrayList, Context mContext) {
+        this.companies = companyArrayList;
         this.mContext = mContext;
     }
 
@@ -36,13 +39,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        holder.image.setImageBitmap(images.get(position));
-        holder.name.setText(names.get(position));
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+        Company company = companies.get(position);
+        try{
+            Bitmap bitmap = BitmapFactory.decodeByteArray(company.getImage(),0,company.getImage().length);
+            holder.image.setImageBitmap(bitmap);
+        }catch (NullPointerException ex){
+            ex.printStackTrace();
+        }
+
+        holder.name.setText(company.getName());
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (position == 0) {
+                if ( holder.getAdapterPosition() == 0) {
 /*
                     AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                     builder.setTitle("Title");
@@ -79,7 +89,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public int getItemCount() {
-        return images.size();
+        return companies.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
