@@ -1,6 +1,7 @@
 package ocr.avaboy.com;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,6 +14,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,42 +28,78 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class OcrActivity extends AppCompatActivity {
+    private static final String TAG = "OcrActivity";
+
     private SurfaceView mCameraView;
     private CameraSource mCameraSource;
     private TextView mTextView;
-    private static final String TAG = "OcrActivity";
+    private ImageButton cameraCtlr;
 
     private ArrayList<String> names = new ArrayList<>();
     private ArrayList<Bitmap> images = new ArrayList<>();
+    private boolean isPlay;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ocr);
         mCameraView = findViewById(R.id.surfaceView);
         mTextView = findViewById(R.id.text_view);
-        startCameraSource();
+        cameraCtlr = findViewById(R.id.camera_controller);
 
+        cameraCtlr.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("MissingPermission")
+            @Override
+            public void onClick(View v) {
+                if (mCameraSource != null) {
+
+                    if (isPlay) {
+                        isPlay = false;
+                        mCameraSource.stop();
+                        mCameraView.clearAnimation();
+                        cameraCtlr.setImageDrawable(getResources().getDrawable(R.drawable.ic_play_circle_outline_white_36dp));
+                    } else {
+                        isPlay = true;
+                        try {
+                            mCameraSource.start(mCameraView.getHolder());
+                            cameraCtlr.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause_circle_outline_white_36dp));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+
+
+                }
+            }
+        });
+
+        startCameraSource();
         initImageBitmap();
     }
 
-    private void initImageBitmap(){
+    private void initImageBitmap() {
 
-        Bitmap metfone = BitmapFactory.decodeResource(this.getResources(),R.drawable.metfone);
-        names.add("Metfone");
-        images.add(metfone);
+        Bitmap newItem = BitmapFactory.decodeResource(this.getResources(), R.drawable.ic_add_circle_outline_grey_500_36dp);
+        names.add("New");
+        images.add(newItem);
 
-        Bitmap smart = BitmapFactory.decodeResource(this.getResources(),R.drawable.smart);
+        Bitmap smart = BitmapFactory.decodeResource(this.getResources(), R.drawable.smart);
         names.add("Smart");
         images.add(smart);
 
-        Bitmap cellcard = BitmapFactory.decodeResource(this.getResources(),R.drawable.cellcard);
+        Bitmap cellcard = BitmapFactory.decodeResource(this.getResources(), R.drawable.cellcard);
         names.add("Cellcard");
         images.add(cellcard);
+
+        Bitmap metfone = BitmapFactory.decodeResource(this.getResources(), R.drawable.metfone);
+        names.add("Metfone");
+        images.add(metfone);
 
         initRecyclerView();
     }
 
-    private void initRecyclerView(){
+    private void initRecyclerView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(layoutManager);
@@ -71,6 +110,7 @@ public class OcrActivity extends AppCompatActivity {
 
     private String[] txtStr = null;
     private String imieNumber = null;
+
     private void startCameraSource() {
 
         //Create the TextRecognizer
@@ -154,13 +194,13 @@ public class OcrActivity extends AppCompatActivity {
                                         if (txtStr[i].matches("[0-9]+")) {
                                             MediaPlayer mediaPlayer = MediaPlayer.create(OcrActivity.this, R.raw.buttonclick);
                                             mediaPlayer.start();
-//                                            chkImie = true;
+                                            isPlay = false;
                                             mTextView.setText(txtStr[i]);
                                             imieNumber = txtStr[i];
                                             mCameraSource.stop();
                                             break;
                                         } else {
-//                                            chkImie = false;
+                                            isPlay = true;
                                         }
                                     }
 

@@ -10,6 +10,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <ImageButton
+        android:id="@+id/camera_controller"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:background="@drawable/white_transparent_solid_border"
+        android:src="@drawable/ic_pause_circle_outline_white_36dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,14 +29,6 @@
         android:paddingTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <Button
-            android:text="Start"
-            android:layout_marginBottom="2dp"
-            android:textColor="@android:color/white"
-            android:textStyle="bold"
-            android:background="@drawable/white_transparent_solid_border"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/text_view"
