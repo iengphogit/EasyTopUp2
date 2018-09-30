@@ -14,4 +14,8 @@
     <string name="add_not_success">Insert not success please check name service.</string>
     <string name="description">Description</string>
     <string name="title">Title</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="topup">Top up</string>
 </resources>

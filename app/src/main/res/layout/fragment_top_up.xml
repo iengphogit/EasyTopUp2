@@ -1,0 +1,26 @@
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="ocr.avaboy.com.fragment.TopUpFragment">
+
+    <SurfaceView
+        android:id="@+id/fgm_surface_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ImageButton
+        android:id="@+id/camera_controller"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:background="@drawable/white_transparent_solid_border"
+        android:src="@drawable/ic_pause_circle_outline_white_36dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>
