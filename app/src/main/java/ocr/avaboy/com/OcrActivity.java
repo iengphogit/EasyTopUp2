@@ -28,6 +28,8 @@ import com.google.android.gms.vision.text.TextRecognizer;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import ocr.avaboy.com.adapters.RecyclerViewAdapter;
+
 public class OcrActivity extends AppCompatActivity {
     private static final String TAG = "OcrActivity";
     private RecyclerViewAdapter recyclerViewAdapter;

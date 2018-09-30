@@ -1,197 +1,211 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/easy_top_up_background"
+    android:background="@drawable/background"
     android:orientation="vertical"
-    android:id="@+id/root_view"
     tools:context="ocr.avaboy.com.MainActivity">
 
-    <RelativeLayout
-        android:background="#DE0000"
+    <View
+        android:background="@drawable/easy_top_up_background_transparent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent" />
 
-        <ImageView
-            android:layout_margin="8dp"
-            android:src="@mipmap/ic_launcher"
-            android:layout_width="100dp"
-            android:layout_height="40dp" />
-
-        <TextView
-            android:visibility="gone"
-            android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            android:layout_margin="8dp"
-            android:padding="8dp"
-            android:text="@string/easy_topup_kh"
-            android:textAlignment="center"
-            android:textColor="@android:color/white"
-            android:textSize="28sp"
-            android:textStyle="bold" />
-    </RelativeLayout>
-
-    <ScrollView
-        android:layout_marginTop="16dp"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:background="#DE0000">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:layout_margin="8dp"
+                android:src="@mipmap/ic_launcher" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:layout_alignParentRight="true"
+                android:layout_margin="8dp"
+                android:padding="8dp"
+                android:text="@string/easy_topup_kh"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+        </RelativeLayout>
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:foreground="?android:attr/selectableItemBackground"
-                    android:id="@+id/take_video"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_margin="8dp"
-                    android:layout_marginTop="92dp"
-                    android:background="@drawable/white_transparent_border"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    app:layout_constraintEnd_toStartOf="@+id/linearLayout"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <ImageView
-                        android:layout_width="64dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="2"
-                        android:src="@drawable/ic_camera_alt_white_48dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:text="Take a photo"
-                        android:textStyle="bold"
-                        android:textColor="@android:color/white"
-                        android:textSize="18sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:foreground="?android:attr/selectableItemBackground"
-                    android:id="@+id/call_service"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_margin="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginTop="92dp"
-                    android:background="@drawable/white_transparent_border"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/linearLayout2"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <ImageView
-                        android:layout_width="64dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="2"
-                        android:src="@drawable/ic_phonelink_setup_white_48dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:text="Call Service"
-                        android:textStyle="bold"
-                        android:textColor="@android:color/white"
-                        android:textSize="18sp" />
-
-                </LinearLayout>
-
-            </LinearLayout>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="16dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal">
+                android:orientation="vertical">
+
 
                 <LinearLayout
-                    android:foreground="?android:attr/selectableItemBackground"
-                    android:id="@+id/service_groups"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_margin="8dp"
-                    android:layout_marginTop="92dp"
-                    android:background="@drawable/white_transparent_border"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    app:layout_constraintEnd_toStartOf="@+id/linearLayout"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:orientation="horizontal">
 
-                    <ImageView
-                        android:layout_width="64dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="2"
-                        android:src="@drawable/ic_sim_card_alert_white_48dp" />
+                    <LinearLayout
+                        android:id="@+id/take_video"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_margin="8dp"
+                        android:layout_marginTop="92dp"
+                        android:background="@drawable/white_transparent_border"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toStartOf="@+id/linearLayout"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:text="Service Groups"
-                        android:textStyle="bold"
-                        android:textColor="@android:color/white"
-                        android:textSize="18sp" />
+                        <ImageView
+                            android:layout_width="64dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="2"
+                            android:src="@drawable/ic_camera_alt_white_48dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:text="Take a photo"
+                            android:textColor="@android:color/white"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/call_service"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_margin="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginTop="92dp"
+                        android:background="@drawable/white_transparent_border"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/linearLayout2"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:layout_width="64dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="2"
+                            android:src="@drawable/ic_phonelink_setup_white_48dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:text="Call Service"
+                            android:textColor="@android:color/white"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:foreground="?android:attr/selectableItemBackground"
-                    android:id="@+id/emergency_call"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_margin="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginTop="92dp"
-                    android:background="@drawable/white_transparent_border"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/linearLayout2"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:orientation="horizontal">
 
-                    <ImageView
-                        android:layout_width="64dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="2"
-                        android:src="@drawable/ic_phone_in_talk_white_48dp" />
+                    <LinearLayout
+                        android:id="@+id/service_groups"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_margin="8dp"
+                        android:layout_marginTop="92dp"
+                        android:background="@drawable/white_transparent_border"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toStartOf="@+id/linearLayout"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:text="Emergency "
-                        android:textStyle="bold"
-                        android:textColor="@android:color/white"
-                        android:textSize="18sp" />
+                        <ImageView
+                            android:layout_width="64dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="2"
+                            android:src="@drawable/ic_sim_card_alert_white_48dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:text="Service Groups"
+                            android:textColor="@android:color/white"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/emergency_call"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_margin="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginTop="92dp"
+                        android:background="@drawable/white_transparent_border"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/linearLayout2"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:layout_width="64dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="2"
+                            android:src="@drawable/ic_phone_in_talk_white_48dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:text="Emergency "
+                            android:textColor="@android:color/white"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
-
             </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
+        </ScrollView>
 
-</LinearLayout>
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

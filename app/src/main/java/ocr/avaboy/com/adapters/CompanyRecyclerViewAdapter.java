@@ -1,32 +1,32 @@
-package ocr.avaboy.com;
+package ocr.avaboy.com.adapters;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.BitmapDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import ocr.avaboy.com.CRUDItemActivity;
+import ocr.avaboy.com.Company;
+import ocr.avaboy.com.MainActivity;
+import ocr.avaboy.com.R;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
+public class CompanyRecyclerViewAdapter extends RecyclerView.Adapter<CompanyRecyclerViewAdapter.ViewHolder> {
 
 
     private ArrayList<Company> companies = new ArrayList<>();
     private Context mContext;
 
-    RecyclerViewAdapter(ArrayList<Company> companyArrayList, Context mContext) {
+    public CompanyRecyclerViewAdapter(ArrayList<Company> companyArrayList, Context mContext) {
         this.companies = companyArrayList;
         this.mContext = mContext;
     }
@@ -34,7 +34,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_list_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_company_list_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -49,38 +49,24 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
 
         holder.name.setText(company.getName());
+        if(company.getDesc() == null){
+            holder.desc.setVisibility(View.GONE);
+        }else{
+            holder.desc.setText(company.getDesc());
+        }
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if ( holder.getAdapterPosition() == 0) {
-/*
-                    AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                    builder.setTitle("Title");
-                    final EditText input = new EditText(mContext);
-                    input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                    builder.setView(input);
-                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            //m_Text = input.getText().toString();
-                        }
-                    });
-                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                        }
-                    });
-
-                    builder.show();
-
-                    */
 
                     Intent crudActivity = new Intent(mContext, CRUDItemActivity.class);
                     mContext.startActivity(crudActivity);
 
                 } else {
-                    Toast.makeText(mContext, "Hahah", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(mContext, "Hahah", Toast.LENGTH_SHORT).show();
+
+                    Intent mainActivity = new Intent(mContext, MainActivity.class);
+                    mContext.startActivity(mainActivity);
 
                 }
             }
@@ -95,13 +81,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     class ViewHolder extends RecyclerView.ViewHolder {
         CircleImageView image;
         TextView name;
+        TextView desc;
+        ImageView addOn;
         View view;
 
         ViewHolder(View itemView) {
             super(itemView);
             view = itemView;
-            image = itemView.findViewById(R.id.image_view);
-            name = itemView.findViewById(R.id.name_view);
+            image = itemView.findViewById(R.id.company_image_view);
+            name = itemView.findViewById(R.id.company_name_text_view);
+            desc = itemView.findViewById(R.id.company_description_text_view);
+            addOn = itemView.findViewById(R.id.company_add_on_text_view);
         }
     }
 }
