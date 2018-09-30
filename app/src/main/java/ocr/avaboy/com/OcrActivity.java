@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
+import android.view.LayoutInflater;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -46,6 +47,15 @@ public class OcrActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ocr);
+
+
+        if (getSupportActionBar() != null){
+            View actionBar = LayoutInflater.from(this).inflate(R.layout.custom_action_bar,null, false);
+            getSupportActionBar().setCustomView(actionBar);
+            getSupportActionBar().setDisplayShowCustomEnabled(true);
+
+        }
+
         sqLiteHelper = new SQLiteHelper(this, "phieDB", null, 1);
 
         mCameraView = findViewById(R.id.surfaceView);

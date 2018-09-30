@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,6 +38,14 @@ public class CRUDItemActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cruditem);
+
+        if (getSupportActionBar() != null){
+            View actionBar = LayoutInflater.from(this).inflate(R.layout.custom_action_bar,null, false);
+            getSupportActionBar().setCustomView(actionBar);
+            getSupportActionBar().setDisplayShowCustomEnabled(true);
+
+        }
+
         sqLiteHelper = new SQLiteHelper(this,"phieDB",null,1);
 
         nameEdt = findViewById(R.id.crud_name);

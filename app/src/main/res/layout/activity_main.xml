@@ -20,32 +20,6 @@
         android:orientation="vertical">
 
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#DE0000">
-
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:layout_margin="8dp"
-                android:src="@mipmap/ic_launcher" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="100dp"
-                android:layout_alignParentRight="true"
-                android:layout_margin="8dp"
-                android:padding="8dp"
-                android:text="@string/easy_topup_kh"
-                android:textAlignment="center"
-                android:textColor="@android:color/white"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
-        </RelativeLayout>
-
-
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
