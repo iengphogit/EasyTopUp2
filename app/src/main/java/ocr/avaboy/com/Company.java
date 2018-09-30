@@ -1,24 +1,26 @@
 package ocr.avaboy.com;
 
+import java.io.Serializable;
+
 /**
  * Created by ILSP on 3/14/2017.
  */
 
-public class Company {
+public class Company implements Serializable {
 
+    private int id;
     private String name,desc,imieStart,imieEnd;
     private int imieLength;
     private byte[] image;
 
     public Company(){}
 
-    public Company(String name, String desc, String imieStart, String imieEnd, int imieLength, byte[] image) {
-        this.name = name;
-        this.desc = desc;
-        this.imieStart = imieStart;
-        this.imieEnd = imieEnd;
-        this.imieLength = imieLength;
-        this.image = image;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

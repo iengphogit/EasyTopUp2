@@ -1,6 +1,5 @@
 package ocr.avaboy.com;
 
-import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -10,24 +9,20 @@ import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
-import ocr.avaboy.com.fragment.BaseFragement;
+import ocr.avaboy.com.fragment.BaseFragment;
 import ocr.avaboy.com.fragment.ServiceFragment;
 import ocr.avaboy.com.fragment.TopUpFragment;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-    private final int REQUEST_CAMERA_CODE = 203;
+    private final int REQUEST_CAMERA_CODE = 202;
     private ConstraintLayout rootView;
     private BottomNavigationView bottomNavigationView;
 
@@ -35,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        rootView = findViewById(R.id.root_view);
 
         bottomNavigationView = findViewById(R.id.bottom_navi_menu);
 
@@ -47,20 +43,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             getSupportActionBar().setDisplayShowCustomEnabled(true);
 
         }
-    }
-
-    private void startOcrIntent() {
-        Intent intent = new Intent(this, OcrActivity.class);
-        startActivity(intent);
-    }
 
 
-    private boolean isHasCameraPermission() {
-        return ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
-    }
-
-    private void requestCamera() {
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_CODE);
     }
 
 
@@ -69,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         switch (requestCode) {
             case REQUEST_CAMERA_CODE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    startOcrIntent();
+                    ((TopUpFragment) baseFragment).startOcrCamera();
                 } else {
                     snackAlert();
                 }
@@ -92,18 +76,19 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         snackbar.show();
     }
 
-    BaseFragement baseFragement;
+    BaseFragment baseFragment;
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         switch (item.getItemId()) {
             case R.id.menu_navi_top_up:
-                baseFragement = new TopUpFragment();
-                setFragement(baseFragement);
+                baseFragment = TopUpFragment.newInstance();
+                setFragement(baseFragment);
                 return true;
             case R.id.menu_navi_services:
-                baseFragement = new ServiceFragment();
-                setFragement(baseFragement);
+                baseFragment = ServiceFragment.newInstance();
+                setFragement(baseFragment);
                 return true;
             default:
                 return false;
@@ -112,9 +97,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
 
-    private void setFragement(Fragment fragment){
+    private void setFragement(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.main_frame_view,fragment);
+        fragmentTransaction.replace(R.id.main_frame_view, fragment);
         fragmentTransaction.commit();
 
     }

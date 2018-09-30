@@ -1,5 +1,6 @@
 package ocr.avaboy.com.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -17,8 +18,10 @@ import java.util.ArrayList;
 import de.hdodenhof.circleimageview.CircleImageView;
 import ocr.avaboy.com.CRUDItemActivity;
 import ocr.avaboy.com.Company;
+import ocr.avaboy.com.HomeActivity;
 import ocr.avaboy.com.MainActivity;
 import ocr.avaboy.com.R;
+import ocr.avaboy.com.data.Singleton;
 
 public class CompanyRecyclerViewAdapter extends RecyclerView.Adapter<CompanyRecyclerViewAdapter.ViewHolder> {
 
@@ -58,13 +61,13 @@ public class CompanyRecyclerViewAdapter extends RecyclerView.Adapter<CompanyRecy
             @Override
             public void onClick(View v) {
                 if ( holder.getAdapterPosition() == 0) {
-
                     Intent crudActivity = new Intent(mContext, CRUDItemActivity.class);
-                    mContext.startActivity(crudActivity);
+                    ((Activity)mContext).startActivityForResult(crudActivity, HomeActivity.CRUD_REQUEST_CODE_FOR_RESULT);
 
                 } else {
-//                    Toast.makeText(mContext, "Hahah", Toast.LENGTH_SHORT).show();
 
+                    Singleton singleton = Singleton.getInstance();
+                    singleton.setCurrentCompany(companies.get(holder.getAdapterPosition()));
                     Intent mainActivity = new Intent(mContext, MainActivity.class);
                     mContext.startActivity(mainActivity);
 

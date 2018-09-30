@@ -12,13 +12,17 @@ import ocr.avaboy.com.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ServiceFragment extends BaseFragement {
+public class ServiceFragment extends BaseFragment {
 
-
-    public ServiceFragment() {
-        // Required empty public constructor
+    private static BaseFragment fragment;
+    public static BaseFragment newInstance() {
+        Bundle args = new Bundle();
+        if(fragment == null){
+            fragment = new ServiceFragment();
+        }
+        fragment.setArguments(args);
+        return fragment;
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

@@ -1,9 +1,9 @@
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/top_up_root_view"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="ocr.avaboy.com.fragment.TopUpFragment">
 
     <SurfaceView
@@ -11,16 +11,62 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <TextView
+        android:id="@+id/fgm_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/easy_top_up_background_transparent"
+        android:text="@string/dash"
+        android:textAlignment="center"
+        android:textColor="@color/colorWhite"
+        android:textSize="22sp"
+        android:padding="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageButton
-        android:id="@+id/camera_controller"
+        android:contentDescription="@null"
+        android:id="@+id/fgm_camera_controller"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        android:foreground="?android:attr/selectableItemBackground"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/white_transparent_solid_border"
+        android:foreground="?android:attr/selectableItemBackground"
         android:src="@drawable/ic_pause_circle_outline_white_36dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/fgm_btn_send"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/fgm_btn_send"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/white_transparent_solid_border"
+        android:contentDescription="@null"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:src="@drawable/ic_send_white_24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/fgm_btn_call"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/fgm_camera_controller" />
+
+    <ImageButton
+        android:contentDescription="@null"
+        android:id="@+id/fgm_btn_call"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/white_transparent_solid_border"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:src="@drawable/ic_call_white_24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/fgm_btn_send" />
 
 </android.support.constraint.ConstraintLayout>
