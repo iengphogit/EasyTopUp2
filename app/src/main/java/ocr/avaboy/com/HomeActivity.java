@@ -1,5 +1,6 @@
 package ocr.avaboy.com;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -7,13 +8,18 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -133,5 +139,56 @@ public class HomeActivity extends AppCompatActivity {
                 super.onActivityResult(requestCode, resultCode, data);
 
         }
+    }
+
+    private int optionSelectPosition = -1;
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        Toast.makeText(this, v.getTag().toString(),Toast.LENGTH_SHORT).show();
+        optionSelectPosition = (int) v.getTag();
+        menu.setHeaderTitle("Option");
+        menu.add(Menu.NONE, 0, Menu.NONE, "Edit");
+        menu.add(Menu.NONE, 1, Menu.NONE, "Delete");
+
+    }
+
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(HomeActivity.this);
+
+        switch (item.getItemId()){
+            case 0:
+                dialogBuilder.setTitle("Do you want to edit?");
+                dialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(HomeActivity.this,"Edit " + companyList.get(optionSelectPosition).getName(),Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                dialogBuilder.setNegativeButton("No", null);
+
+                break;
+            case 1:
+
+                dialogBuilder.setTitle("Do you want to delete?");
+                dialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(HomeActivity.this,"Delete " + companyList.get(optionSelectPosition).getName(),Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
+                dialogBuilder.setNegativeButton("No", null);
+
+                break;
+        }
+
+        AlertDialog alertDialog = dialogBuilder.create();
+        alertDialog.show();
+
+        return true;
     }
 }

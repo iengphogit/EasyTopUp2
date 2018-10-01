@@ -75,6 +75,21 @@ public class CompanyRecyclerViewAdapter extends RecyclerView.Adapter<CompanyRecy
                 }
             }
         });
+
+        holder.view.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+                Log.i("my", "onLongClick: ");
+                v.setTag(holder.getAdapterPosition());
+                ((HomeActivity)mContext).registerForContextMenu(holder.view);
+                ((HomeActivity)mContext).openContextMenu(holder.view);
+
+
+
+                return true;
+            }
+        });
     }
 
     @Override
