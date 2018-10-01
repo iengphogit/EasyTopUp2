@@ -21,4 +21,6 @@
     <string name="dash">---------</string>
     <string name="no_camera_permission">Camera permission denied</string>
     <string name="default_digits_str">[---------- %s digits ----------]</string>
+    <string name="invalid_top_up_code">Sorry no existing top up code</string>
+    <string name="make_a_dail_msg_question">Do you want to make a dial?</string>
 </resources>

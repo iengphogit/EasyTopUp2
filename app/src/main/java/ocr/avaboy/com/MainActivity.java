@@ -22,7 +22,6 @@ import ocr.avaboy.com.fragment.TopUpFragment;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-    private final int REQUEST_CAMERA_CODE = 202;
     private ConstraintLayout rootView;
     private BottomNavigationView bottomNavigationView;
 
@@ -51,13 +50,23 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
-            case REQUEST_CAMERA_CODE:
+            case TopUpFragment.REQUEST_CAMERA_CODE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     ((TopUpFragment) baseFragment).startOcrCamera();
                 } else {
                     snackAlert();
                 }
                 break;
+
+            case TopUpFragment.REQUEST_SEND_SMS_CODE:
+                ((TopUpFragment) baseFragment).sendSmsIntent();
+                break;
+
+            case  TopUpFragment.REQUEST_CALL_PHONE_CODE:
+                ((TopUpFragment) baseFragment).callPhoneIntent();
+                break;
+
+
         }
     }
 

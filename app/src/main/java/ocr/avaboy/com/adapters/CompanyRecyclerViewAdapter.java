@@ -7,11 +7,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -65,9 +67,8 @@ public class CompanyRecyclerViewAdapter extends RecyclerView.Adapter<CompanyRecy
                     ((Activity)mContext).startActivityForResult(crudActivity, HomeActivity.CRUD_REQUEST_CODE_FOR_RESULT);
 
                 } else {
-
-                    Singleton singleton = Singleton.getInstance();
-                    singleton.setCurrentCompany(companies.get(holder.getAdapterPosition()));
+                    Singleton.getInstance().setCurrentCompany(companies.get(holder.getAdapterPosition()));
+//                    Log.i("my_log", "onClick: " + Singleton.getInstance().getCurrentCompany().getImieStart());
                     Intent mainActivity = new Intent(mContext, MainActivity.class);
                     mContext.startActivity(mainActivity);
 
