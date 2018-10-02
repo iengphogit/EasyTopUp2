@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,10 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -33,20 +30,21 @@ public class CRUDItemActivity extends AppCompatActivity implements View.OnClickL
 
     final int REQUEST_CODE_GALLERY = 999;
     private SQLiteHelper sqLiteHelper;
+    private Company company;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cruditem);
 
-        if (getSupportActionBar() != null){
-            View actionBar = LayoutInflater.from(this).inflate(R.layout.custom_action_bar,null, false);
+        if (getSupportActionBar() != null) {
+            View actionBar = LayoutInflater.from(this).inflate(R.layout.custom_action_bar, null, false);
             getSupportActionBar().setCustomView(actionBar);
             getSupportActionBar().setDisplayShowCustomEnabled(true);
 
         }
 
-        sqLiteHelper = new SQLiteHelper(this,"phieDB",null,1);
+        sqLiteHelper = new SQLiteHelper(this, "phieDB", null, 1);
 
         nameEdt = findViewById(R.id.crud_name);
         descEdt = findViewById(R.id.crud_description);
@@ -58,6 +56,25 @@ public class CRUDItemActivity extends AppCompatActivity implements View.OnClickL
         saveBtn.setOnClickListener(this);
         image = findViewById(R.id.crud_image);
         image.setOnClickListener(this);
+        Intent data = getIntent();
+        if (data != null && data.hasExtra("company")) {
+            company = (Company) data.getSerializableExtra("company");
+            mapFields(company);
+        }
+
+    }
+
+    private boolean isUpdate;
+
+    private void mapFields(Company company) {
+        nameEdt.setText(company.getName() != null ? company.getName() : "");
+        descEdt.setText(company.getDesc() != null ? company.getDesc() : "");
+        imieStartEdt.setText(company.getImieStart() != null ? company.getImieStart() : "");
+        imieEndEdt.setText(company.getImieEnd() != null ? company.getImieEnd() : "#");
+        imieLenghtEdt.setText(String.valueOf(company.getImieLength()));
+        Bitmap bitmap = BitmapFactory.decodeByteArray(company.getImage(),0,company.getImage().length);
+        image.setImageBitmap(bitmap);
+        isUpdate = true;
     }
 
     @Override
@@ -79,38 +96,54 @@ public class CRUDItemActivity extends AppCompatActivity implements View.OnClickL
 
     private void doSubmitSaveItem() {
 
-        if(nameEdt.getText().toString().equals("")){
+        if (nameEdt.getText().toString().equals("")) {
             nameEdt.setError("Please input company name.");
-        }else if(imieStartEdt.getText().toString().equals("")){
+        } else if (imieStartEdt.getText().toString().equals("")) {
             imieStartEdt.setError("Please input imie start.");
-        }else{
+        } else {
 
             byte[] imgArr = null;
             try {
 
-                if( uri == null){
+                if (uri == null) {
                     imgArr = Util.getBytes(getResources().getDrawable(R.mipmap.ic_launcher));
-                }else{
+                } else {
                     imgArr = Util.uriToByteArray(this, uri);
                 }
 
-                int imieLength = imieLenghtEdt.getText().toString().length() > 0? Integer.parseInt(imieLenghtEdt.getText().toString()): Config.imieLength;
-                sqLiteHelper.insertData(
-                        nameEdt.getText().toString(),
-                        descEdt.getText().toString(),
-                        imieStartEdt.getText().toString(),
-                        imieEndEdt.getText().toString().isEmpty()? Config.imieEnd: imieEndEdt.getText().toString(),
-                        imieLength,
-                        imgArr);
-                Toast.makeText(this,getResources().getString(R.string.add_success),Toast.LENGTH_LONG).show();
+                int imieLength = imieLenghtEdt.getText().toString().length() > 0 ? Integer.parseInt(imieLenghtEdt.getText().toString()) : Config.imieLength;
+                if (!isUpdate) {
+                    sqLiteHelper.insertData(
+                            nameEdt.getText().toString(),
+                            descEdt.getText().toString(),
+                            imieStartEdt.getText().toString(),
+                            imieEndEdt.getText().toString().isEmpty() ? Config.imieEnd : imieEndEdt.getText().toString(),
+                            imieLength,
+                            imgArr);
+                    Toast.makeText(this, getResources().getString(R.string.add_success), Toast.LENGTH_LONG).show();
+
+                } else {
+                    int updId = sqLiteHelper.updateData(nameEdt.getText().toString(),
+                            descEdt.getText().toString(),
+                            imieStartEdt.getText().toString(),
+                            imieEndEdt.getText().toString().isEmpty() ? Config.imieEnd : imieEndEdt.getText().toString(),
+                            imieLength,
+                            imgArr, company.getName());
+                    if (updId > 0) {
+                        Toast.makeText(this, getResources().getString(R.string.update_success), Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(this,getResources().getString(R.string.update_not_success),Toast.LENGTH_LONG).show();
+                    }
+                }
                 finish();
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
-                Toast.makeText(getApplicationContext(),getResources().getString(R.string.add_not_success),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.add_not_success), Toast.LENGTH_SHORT).show();
             }
         }
 
     }
+
 
     private void startPickImageFromGallery() {
         if (checkWriteExternalPermission()) {
@@ -166,7 +199,6 @@ public class CRUDItemActivity extends AppCompatActivity implements View.OnClickL
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
-
 
 
 }

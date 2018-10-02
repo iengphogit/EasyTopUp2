@@ -142,9 +142,9 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private int optionSelectPosition = -1;
+
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        Toast.makeText(this, v.getTag().toString(),Toast.LENGTH_SHORT).show();
         optionSelectPosition = (int) v.getTag();
         menu.setHeaderTitle("Option");
         menu.add(Menu.NONE, 0, Menu.NONE, "Edit");
@@ -157,13 +157,15 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onContextItemSelected(MenuItem item) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(HomeActivity.this);
 
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case 0:
                 dialogBuilder.setTitle("Do you want to edit?");
                 dialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(HomeActivity.this,"Edit " + companyList.get(optionSelectPosition).getName(),Toast.LENGTH_SHORT).show();
+                        Intent crudIntent = new Intent(HomeActivity.this, CRUDItemActivity.class);
+                        crudIntent.putExtra("company", companyList.get(optionSelectPosition));
+                        startActivityForResult(crudIntent, CRUD_REQUEST_CODE_FOR_RESULT);
                     }
                 });
 
@@ -176,7 +178,12 @@ public class HomeActivity extends AppCompatActivity {
                 dialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(HomeActivity.this,"Delete " + companyList.get(optionSelectPosition).getName(),Toast.LENGTH_SHORT).show();
+                        if (sqLiteHelper.deleteData(companyList.get(optionSelectPosition).getName()) > 0) {
+                            Toast.makeText(HomeActivity.this, "Your record have been deleted successfully", Toast.LENGTH_SHORT).show();
+                            initImageBitmap();
+                        } else {
+                            Toast.makeText(HomeActivity.this, "Your record have not been deleted", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
 
