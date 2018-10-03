@@ -2,7 +2,7 @@ package ocr.avaboy.com.data;
 
 import java.util.ArrayList;
 
-import ocr.avaboy.com.Company;
+import ocr.avaboy.com.model.Company;
 
 /**
  * Created by iengpho on 9/30/18.

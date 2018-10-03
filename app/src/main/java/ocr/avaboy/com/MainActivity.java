@@ -12,7 +12,10 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -43,6 +46,16 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         }
 
+
+    }
+
+    int optionSelectPosition = -1;
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        optionSelectPosition = (int) v.getTag();
+        menu.setHeaderTitle("Option");
+        menu.add(Menu.NONE, 0, Menu.NONE, "Edit");
+        menu.add(Menu.NONE, 1, Menu.NONE, "Delete");
 
     }
 

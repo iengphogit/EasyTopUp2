@@ -32,7 +32,7 @@ import com.google.android.gms.vision.text.TextRecognizer;
 
 import java.io.IOException;
 
-import ocr.avaboy.com.Company;
+import ocr.avaboy.com.model.Company;
 import ocr.avaboy.com.R;
 import ocr.avaboy.com.data.Singleton;
 import ocr.avaboy.com.listener.CameraListener;

@@ -13,13 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import ocr.avaboy.com.CRUDItemActivity;
-import ocr.avaboy.com.Company;
+import ocr.avaboy.com.model.Company;
 import ocr.avaboy.com.HomeActivity;
 import ocr.avaboy.com.MainActivity;
 import ocr.avaboy.com.R;

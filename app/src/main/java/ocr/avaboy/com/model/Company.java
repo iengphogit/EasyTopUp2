@@ -1,4 +1,4 @@
-package ocr.avaboy.com;
+package ocr.avaboy.com.model;
 
 import java.io.Serializable;
 

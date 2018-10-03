@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import ocr.avaboy.com.CRUDItemActivity;
-import ocr.avaboy.com.Company;
+import ocr.avaboy.com.model.Company;
 import ocr.avaboy.com.R;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {

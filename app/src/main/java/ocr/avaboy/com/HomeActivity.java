@@ -26,6 +26,7 @@ import java.util.ArrayList;
 
 import ocr.avaboy.com.adapters.CompanyRecyclerViewAdapter;
 import ocr.avaboy.com.data.Singleton;
+import ocr.avaboy.com.model.Company;
 
 public class HomeActivity extends AppCompatActivity {
     private SQLiteHelper sqLiteHelper;
@@ -95,6 +96,7 @@ public class HomeActivity extends AppCompatActivity {
             if (cursor.moveToFirst()) {
                 do {
 
+                    int id = cursor.getInt(0);
                     String name = cursor.getString(1);
                     String desc = cursor.getString(2);
                     String imieS = cursor.getString(3);
@@ -102,6 +104,7 @@ public class HomeActivity extends AppCompatActivity {
                     int imieLength = cursor.getInt(5);
                     byte[] image = cursor.getBlob(6);
                     Company cpn = new Company();
+                    cpn.setId(id);
                     cpn.setName(name);
                     cpn.setDesc(desc);
                     cpn.setImieStart(imieS);

@@ -30,6 +30,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import ocr.avaboy.com.adapters.RecyclerViewAdapter;
+import ocr.avaboy.com.model.Company;
 
 public class OcrActivity extends AppCompatActivity {
     private static final String TAG = "OcrActivity";

@@ -19,6 +19,7 @@ import android.widget.Toast;
 import java.io.InputStream;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import ocr.avaboy.com.model.Company;
 
 public class CRUDItemActivity extends AppCompatActivity implements View.OnClickListener {
 

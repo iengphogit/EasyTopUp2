@@ -7,4 +7,5 @@ package ocr.avaboy.com;
 public class Config {
     public static int imieLength = 14;
     public static String imieEnd = "#";
+    public static String dbName2 = "phieDB";
 }
