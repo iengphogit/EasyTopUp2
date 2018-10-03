@@ -17,9 +17,7 @@ public class ServiceFragment extends BaseFragment {
     private static BaseFragment fragment;
     public static BaseFragment newInstance() {
         Bundle args = new Bundle();
-        if(fragment == null){
             fragment = new ServiceFragment();
-        }
         fragment.setArguments(args);
         return fragment;
     }
@@ -28,7 +26,7 @@ public class ServiceFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_, container, false);
+        return inflater.inflate(R.layout.fragment_service, container, false);
     }
 
 }
