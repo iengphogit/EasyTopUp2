@@ -15,6 +15,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import ocr.avaboy.com.CRUDItemActivity;
+import ocr.avaboy.com.fragment.ServiceFragment;
 import ocr.avaboy.com.model.Company;
 import ocr.avaboy.com.HomeActivity;
 import ocr.avaboy.com.MainActivity;
@@ -42,20 +43,26 @@ public class ServiceDetailRecyclerViewAdapter extends RecyclerView.Adapter<Servi
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        ServiceDetail serviceDetail = serviceDetails.get(holder.getAdapterPosition());
+        final ServiceDetail serviceDetail = serviceDetails.get(holder.getAdapterPosition());
         holder.numTxv.setText(serviceDetail.getCardinalNumber());
         holder.titleTxv.setText(serviceDetail.getName());
         holder.sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                MainActivity mainActivity = ((MainActivity)mContext);
+                ServiceFragment serviceFragment = (ServiceFragment) mainActivity.baseFragment;
+                serviceFragment.currentService = serviceDetail;
+                serviceFragment.sendSmsIntent(serviceDetail.getServiceNum());
             }
         });
 
         holder.callBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                MainActivity mainActivity = ((MainActivity)mContext);
+                ServiceFragment serviceFragment = (ServiceFragment) mainActivity.baseFragment;
+                serviceFragment.currentService = serviceDetail;
+                serviceFragment.callPhoneIntent(serviceDetail.getServiceNum());
             }
         });
 

@@ -12,7 +12,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -50,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     int optionSelectPosition = -1;
+
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         optionSelectPosition = (int) v.getTag();
@@ -62,23 +62,33 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        ServiceFragment serviceFragment = ((ServiceFragment) baseFragment);
+        TopUpFragment topUpFragment = (TopUpFragment) baseFragment;
         switch (requestCode) {
             case TopUpFragment.REQUEST_CAMERA_CODE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    ((TopUpFragment) baseFragment).startOcrCamera();
+                    topUpFragment.startOcrCamera();
                 } else {
                     snackAlert();
                 }
                 break;
 
             case TopUpFragment.REQUEST_SEND_SMS_CODE:
-                ((TopUpFragment) baseFragment).sendSmsIntent();
+                topUpFragment.sendSmsIntent();
                 break;
 
             case  TopUpFragment.REQUEST_CALL_PHONE_CODE:
-                ((TopUpFragment) baseFragment).callPhoneIntent();
+                topUpFragment.callPhoneIntent();
                 break;
 
+            case ServiceFragment.REQUEST_SEND_SMS_CODE:
+                serviceFragment.sendSmsIntent(serviceFragment.currentService.getServiceNum());
+                break;
+
+            case  ServiceFragment.REQUEST_CALL_PHONE_CODE:
+                serviceFragment = ((ServiceFragment) baseFragment);
+                serviceFragment.callPhoneIntent(serviceFragment.currentService.getServiceNum());
+                break;
 
         }
     }
@@ -98,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         snackbar.show();
     }
 
-    BaseFragment baseFragment;
+    public BaseFragment baseFragment;
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {

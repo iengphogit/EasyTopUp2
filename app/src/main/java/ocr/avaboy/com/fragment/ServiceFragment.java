@@ -1,9 +1,17 @@
 package ocr.avaboy.com.fragment;
 
 
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
@@ -12,6 +20,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -35,6 +44,12 @@ public class ServiceFragment extends BaseFragment {
     private ArrayList<ServiceDetail> serviceDetails;
     private ServiceDetailRecyclerViewAdapter adapter;
     private SQLiteHelper sqLiteHelper;
+    private Context mContext;
+    public ServiceDetail currentService = null;
+
+
+    public static final int REQUEST_CALL_PHONE_CODE = 103;
+    public static final int REQUEST_SEND_SMS_CODE = 104;
 
     public static BaseFragment newInstance() {
         Bundle args = new Bundle();
@@ -46,6 +61,7 @@ public class ServiceFragment extends BaseFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        this.mContext = inflater.getContext();
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_service, container, false);
 
@@ -61,6 +77,7 @@ public class ServiceFragment extends BaseFragment {
         getData();
         return view;
     }
+
 
     public void getData() {
         String strId = String.valueOf(Singleton.getInstance().getCurrentCompany().getId());
@@ -131,5 +148,73 @@ public class ServiceFragment extends BaseFragment {
 
 
         }
+    }
+
+
+    private Uri ussdToCallableUri(String ussd) {
+        StringBuilder uriSting = new StringBuilder();
+        if (!ussd.startsWith("tel:"))
+            uriSting.append("tel:");
+
+        for (char c : ussd.toCharArray()) {
+            if (c == '#')
+                uriSting.append(Uri.encode("#"));
+            else
+                uriSting.append(c);
+        }
+        return Uri.parse(uriSting.toString());
+    }
+
+    public void sendSmsIntent(String imieNumber) {
+        if(isSendSMSPermission()) {
+            if (imieNumber != null && !imieNumber.isEmpty()) {
+                Intent smsIntent = new Intent(Intent.ACTION_VIEW);
+                smsIntent.putExtra("sms_body", imieNumber);
+                smsIntent.setType("vnd.android-dir/mms-sms");
+                startActivity(smsIntent);
+            } else {
+                Toast.makeText(mContext, getResources().getString(R.string.empty), Toast.LENGTH_SHORT).show();
+            }
+        }else {
+            requestSendSMSPermission();
+        }
+
+    }
+
+    @SuppressLint("MissingPermission")
+    public void callPhoneIntent(String imieNumber) {
+        if(isPhoneCallPermission()) {
+            if (imieNumber != null && !imieNumber.isEmpty()) {
+                Intent intent = new Intent(Intent.ACTION_CALL, ussdToCallableUri(imieNumber));
+                startActivity(intent);
+            } else {
+                Toast.makeText(mContext, getResources().getString(R.string.empty_call), Toast.LENGTH_SHORT).show();
+            }
+        }else{
+            requestPhoneCallPermission();
+        }
+    }
+
+
+    private boolean isPhoneCallPermission() {
+        return ActivityCompat.checkSelfPermission(mContext.getApplicationContext(),
+                Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private void requestPhoneCallPermission() {
+        ActivityCompat.requestPermissions((Activity) mContext,
+                new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL_PHONE_CODE
+        );
+    }
+
+    private boolean isSendSMSPermission() {
+        return ActivityCompat.checkSelfPermission(mContext.getApplicationContext(),
+                Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private void requestSendSMSPermission() {
+        ActivityCompat.requestPermissions((Activity) mContext,
+                new String[]{Manifest.permission.SEND_SMS}, REQUEST_SEND_SMS_CODE
+        );
     }
 }

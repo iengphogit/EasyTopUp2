@@ -25,4 +25,6 @@
     <string name="make_a_dail_msg_question">Do you want to make a dial?</string>
     <string name="update_success">Your record have been updated</string>
     <string name="update_not_success">Your record have not been updated</string>
+    <string name="empty">Sorry you can\'t send empty message</string>
+    <string name="empty_call">Sorry you can\'t dial an empty service number</string>
 </resources>
