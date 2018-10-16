@@ -57,7 +57,7 @@ public class OcrActivity extends AppCompatActivity {
 
         }
 
-        sqLiteHelper = new SQLiteHelper(this, "phieDB", null, 1);
+        sqLiteHelper = new SQLiteHelper(this, Config.dbName2, null, 1);
 
         mCameraView = findViewById(R.id.surfaceView);
         mTextView = findViewById(R.id.text_view);

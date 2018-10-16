@@ -48,7 +48,7 @@ public class HomeActivity extends AppCompatActivity {
 
         }
 
-        sqLiteHelper = new SQLiteHelper(this, "phieDB", null, 1);
+        sqLiteHelper = new SQLiteHelper(this, Config.dbName2, null, 1);
 
         recyclerView = findViewById(R.id.home_recycler_view);
         companyRecyclerViewAdapter = new CompanyRecyclerViewAdapter(companyList, this);
@@ -64,7 +64,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private void initDB() {
 
-        sqLiteHelper = new SQLiteHelper(this, "phieDB", null, 1);
+        sqLiteHelper = new SQLiteHelper(this, Config.dbName2, null, 1);
         sqLiteHelper.queryData("CREATE TABLE IF NOT EXISTS tbl_company(Id INTEGER PRIMARY KEY AUTOINCREMENT,name VARCHAR NOT NULL UNIQUE,desc VARCHAR,imie_start VARCHAR,imie_end VARCHAR,imie_limit INTEGER, image BLOG)");
         sqLiteHelper.queryData("CREATE TABLE IF NOT EXISTS tbl_company_detail(Id INTEGER PRIMARY KEY AUTOINCREMENT,name VARCHAR, service_num VARCHAR,company_id INTEGER)");
         Cursor cs = sqLiteHelper.getData("SELECT Id FROM tbl_company WHERE Id=1 OR Id=2 OR Id=3;");

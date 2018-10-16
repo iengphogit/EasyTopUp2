@@ -45,7 +45,7 @@ public class CRUDItemActivity extends AppCompatActivity implements View.OnClickL
 
         }
 
-        sqLiteHelper = new SQLiteHelper(this, "phieDB", null, 1);
+        sqLiteHelper = new SQLiteHelper(this, Config.dbName2, null, 1);
 
         nameEdt = findViewById(R.id.crud_name);
         descEdt = findViewById(R.id.crud_description);
