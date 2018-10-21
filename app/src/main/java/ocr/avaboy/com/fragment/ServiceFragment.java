@@ -70,7 +70,7 @@ public class ServiceFragment extends BaseFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_service, container, false);
 
-        sqLiteHelper = new SQLiteHelper(inflater.getContext(), Config.dbName2, null, 1);
+        sqLiteHelper = new SQLiteHelper(inflater.getContext(), Config.currentDBName, null, 1);
         initData();
         detailRecyclerView = view.findViewById(R.id.service_recycler_view);
         detailRecyclerView.setItemAnimator(new DefaultItemAnimator());

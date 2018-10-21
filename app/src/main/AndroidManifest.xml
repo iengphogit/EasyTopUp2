@@ -25,6 +25,10 @@
             android:screenOrientation="portrait" />
 
         <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="@string/banner_ad_unit_id"/>
+
+        <meta-data
             android:name="com.google.android.gms.vision.DEPENDENCIES"
             android:value="ocr" />
 

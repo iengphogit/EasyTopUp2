@@ -26,6 +26,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
@@ -45,7 +49,9 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        Config.dbName2 = Util.getSharepreference(Config.DATA_BASE_NAME, getApplicationContext());
+        Config.currentDBName = Util.getSharepreference(Config.DATA_BASE_NAME, getApplicationContext());
+
+        final String[] databases = getResources().getStringArray(R.array.database);
 
         if (getSupportActionBar() != null) {
             View actionBar = LayoutInflater.from(this).inflate(R.layout.custom_action_bar, null, false);
@@ -59,6 +65,46 @@ public class HomeActivity extends AppCompatActivity {
                 swtich.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
+                        builder.setTitle("Choose Database");
+
+                        int selectedId;
+                        if(Config.currentDBName.equals(Config.dbName1)){
+                            selectedId = 0;
+                        }else {
+                            selectedId = 1;
+                        }
+
+                        builder.setSingleChoiceItems(databases, selectedId, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if (which == 0){
+                                    Util.setSharepreference(Config.DATA_BASE_NAME, Config.dbName1,getApplicationContext());
+                                    Config.currentDBName = Util.getSharepreference(Config.DATA_BASE_NAME, getApplicationContext());
+                                }else if(which == 1){
+                                    Util.setSharepreference(Config.DATA_BASE_NAME, Config.dbName2,getApplicationContext());
+                                    Config.currentDBName = Util.getSharepreference(Config.DATA_BASE_NAME, getApplicationContext());
+                                }
+                            }
+                        });
+
+                        builder.setPositiveButton("SET", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                initImageBitmap();
+                                dialog.dismiss();
+                            }
+                        });
+
+                        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+
+                        builder.show();
 
                     }
                 });
@@ -79,6 +125,11 @@ public class HomeActivity extends AppCompatActivity {
         recyclerView.setAdapter(companyRecyclerViewAdapter);
         initDB();
         initImageBitmap();
+
+        MobileAds.initialize(this, getResources().getString(R.string.banner_ad_unit_id));
+        AdView mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
     }
 

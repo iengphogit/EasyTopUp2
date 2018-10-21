@@ -36,7 +36,7 @@ public class Util {
 
     public static String getSharepreference(String PREF_NAME, Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        return prefs.getString(PREF_NAME, "phieDB2");
+        return prefs.getString(PREF_NAME, Config.currentDBName);
     }
 
     public static byte[] imageViewToByte(ImageView image) {

@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             });
 
         }
-        sqLiteHelper = new SQLiteHelper(this, Config.dbName2, null, 1);
+        sqLiteHelper = new SQLiteHelper(this, Config.currentDBName, null, 1);
 
     }
 
