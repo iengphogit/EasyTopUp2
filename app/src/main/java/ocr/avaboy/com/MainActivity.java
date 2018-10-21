@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
@@ -18,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 import ocr.avaboy.com.fragment.BaseFragment;
 import ocr.avaboy.com.fragment.ServiceFragment;
@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     private ConstraintLayout rootView;
     private BottomNavigationView bottomNavigationView;
+    private ImageView optionMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,14 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             View actionBar = LayoutInflater.from(this).inflate(R.layout.custom_action_bar, null, false);
             getSupportActionBar().setCustomView(actionBar);
             getSupportActionBar().setDisplayShowCustomEnabled(true);
+            optionMenu = actionBar.findViewById(R.id.option_menu);
+
+            optionMenu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
 
         }
 
@@ -77,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 ((TopUpFragment) baseFragment).sendSmsIntent();
                 break;
 
-            case  TopUpFragment.REQUEST_CALL_PHONE_CODE:
+            case TopUpFragment.REQUEST_CALL_PHONE_CODE:
                 ((TopUpFragment) baseFragment).callPhoneIntent();
                 break;
 
@@ -85,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 ((ServiceFragment) baseFragment).sendSmsIntent(((ServiceFragment) baseFragment).currentService.getServiceNum());
                 break;
 
-            case  ServiceFragment.REQUEST_CALL_PHONE_CODE:
+            case ServiceFragment.REQUEST_CALL_PHONE_CODE:
                 ((ServiceFragment) baseFragment).callPhoneIntent(((ServiceFragment) baseFragment).currentService.getServiceNum());
                 break;
 
@@ -116,10 +125,14 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             case R.id.menu_navi_top_up:
                 baseFragment = TopUpFragment.newInstance();
                 setFragement(baseFragment);
+                if (optionMenu != null)
+                    optionMenu.setVisibility(View.GONE);
                 return true;
             case R.id.menu_navi_services:
                 baseFragment = ServiceFragment.newInstance();
                 setFragement(baseFragment);
+                if (optionMenu != null)
+                    optionMenu.setVisibility(View.VISIBLE);
                 return true;
             default:
                 return false;

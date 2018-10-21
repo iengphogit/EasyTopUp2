@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ETU Mobile</string>
+    <string name="app_name">EASY TOPUP</string>
     <string name="app_full_name">EASY TOP UP Mobile</string>
     <string name="easy_topup_kh">EASY TOPUP KH</string>
     <string name="txt_message">--------</string>
@@ -27,4 +27,5 @@
     <string name="update_not_success">Your record have not been updated</string>
     <string name="empty">Sorry you can\'t send empty message</string>
     <string name="empty_call">Sorry you can\'t dial an empty service number</string>
+    <string name="add_new_service">Add new service</string>
 </resources>
