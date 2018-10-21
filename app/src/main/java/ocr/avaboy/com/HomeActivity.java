@@ -1,8 +1,11 @@
 package ocr.avaboy.com;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -20,9 +23,11 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.util.ArrayList;
 
 import ocr.avaboy.com.adapters.CompanyRecyclerViewAdapter;
@@ -40,12 +45,27 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
+        Config.dbName2 = Util.getSharepreference(Config.DATA_BASE_NAME, getApplicationContext());
 
         if (getSupportActionBar() != null) {
             View actionBar = LayoutInflater.from(this).inflate(R.layout.custom_action_bar, null, false);
             getSupportActionBar().setCustomView(actionBar);
             getSupportActionBar().setDisplayShowCustomEnabled(true);
+
+            ImageView swtich = actionBar.findViewById(R.id.option_menu);
+            if(doesDatabaseExist(this,Config.dbName1)){
+                swtich.setVisibility(View.VISIBLE);
+                swtich.setImageDrawable(getResources().getDrawable(R.drawable.ic_phonelink_setup_white_24dp));
+                swtich.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
+            }else{
+                swtich.setVisibility(View.GONE);
+                swtich.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_white_24dp));
+            }
 
         }
 
@@ -62,6 +82,10 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
+    private static boolean doesDatabaseExist(Context context, String dbName) {
+        File dbFile = context.getDatabasePath(dbName);
+        return dbFile.exists();
+    }
 
     private void initDB() {
 

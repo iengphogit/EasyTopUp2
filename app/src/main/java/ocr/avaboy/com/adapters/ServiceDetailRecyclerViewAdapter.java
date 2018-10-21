@@ -66,18 +66,6 @@ public class ServiceDetailRecyclerViewAdapter extends RecyclerView.Adapter<Servi
             }
         });
 
-        /*
-        holder.view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                v.setTag(holder.getAdapterPosition());
-                if(mContext != null){
-                    ((MainActivity)mContext).registerForContextMenu(holder.view);
-                    ((MainActivity)mContext).openContextMenu(holder.view);
-                }
-            }
-        });
-        */
 
         holder.view.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -85,6 +73,9 @@ public class ServiceDetailRecyclerViewAdapter extends RecyclerView.Adapter<Servi
                 Log.i("my", "onLongClick: ");
                 v.setTag(holder.getAdapterPosition());
                 if(mContext != null) {
+                    MainActivity mainActivity = ((MainActivity)mContext);
+                    ServiceFragment serviceFragment = (ServiceFragment) mainActivity.baseFragment;
+                    serviceFragment.currentService = serviceDetail;
                     ((MainActivity) mContext).registerForContextMenu(holder.view);
                     ((MainActivity) mContext).openContextMenu(holder.view);
                 }
