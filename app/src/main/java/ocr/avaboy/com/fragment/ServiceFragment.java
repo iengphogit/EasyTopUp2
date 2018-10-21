@@ -135,9 +135,9 @@ public class ServiceFragment extends BaseFragment {
             sqLiteHelper.insertDataDetail("Exchange $30 (*656*100#)", "*656*100#", 2);
             sqLiteHelper.insertDataDetail("Exchange $60 (*656*200#)", "*656*200#", 2);
 
-            sqLiteHelper.insertDataDetail("TalkLikeCrazy $2(120min/day) (*015*200#)", "*015*200#", 2);
-            sqLiteHelper.insertDataDetail("TalkLikeCrazy $3.5(150min/day) (*015*350#)", "*015*350#", 2);
-            sqLiteHelper.insertDataDetail("To unsubscribe TalkLikeCrazy (*015*0#)", "*015*0#", 2);
+            sqLiteHelper.insertDataDetail("TalkLikeCrazy $2\n (120min/day) (*015*200#)", "*015*200#", 2);
+            sqLiteHelper.insertDataDetail("TalkLikeCrazy $3.5\n (150min/day) (*015*350#)", "*015*350#", 2);
+            sqLiteHelper.insertDataDetail("To Unsubscribe TalkLikeCrazy (*015*0#)", "*015*0#", 2);
 
             sqLiteHelper.insertDataDetail("Check My Number (*887#)", "*887#", 2);
             sqLiteHelper.insertDataDetail("Call Center (888)", "888", 2);

@@ -182,10 +182,10 @@ public class TopUpFragment extends BaseFragment implements CameraListener {
     public void startOcrCamera() {
         isPlay = true;
         mTextView.setText(setDefaultDigits());
+        cameraCtlr.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause_circle_outline_white_36dp));
         try {
             if (isCameraPermission()) {
                 mCameraSource.start(mCameraView.getHolder());
-                cameraCtlr.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause_circle_outline_white_36dp));
             } else {
                 Toast.makeText(mContext, getResources().getString(R.string.no_camera_permission), Toast.LENGTH_SHORT).show();
                 ((Activity) mContext).finish();
@@ -196,11 +196,11 @@ public class TopUpFragment extends BaseFragment implements CameraListener {
     }
 
     private void stopOcrCamera() {
+        cameraCtlr.setImageDrawable(getResources().getDrawable(R.drawable.ic_play_circle_outline_white_36dp));
         if (isCameraPermission()) {
             isPlay = false;
             mCameraSource.stop();
             mCameraView.clearAnimation();
-            cameraCtlr.setImageDrawable(getResources().getDrawable(R.drawable.ic_play_circle_outline_white_36dp));
         } else {
             Toast.makeText(mContext, getResources().getString(R.string.no_camera_permission), Toast.LENGTH_SHORT).show();
             ((Activity) mContext).finish();
@@ -237,15 +237,19 @@ public class TopUpFragment extends BaseFragment implements CameraListener {
                 @SuppressLint("MissingPermission")
                 @Override
                 public void surfaceCreated(SurfaceHolder holder) {
+                    if (!isCameraPermission()) {
+                        requestCameraPermission();
+                        return;
+                    }
+                    stopOcrCamera();
+                    /*
                     try {
-                        if (!isCameraPermission()) {
-                            requestCameraPermission();
-                            return;
-                        }
                         mCameraSource.start(mCameraView.getHolder());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                    */
+
                 }
 
                 @Override
