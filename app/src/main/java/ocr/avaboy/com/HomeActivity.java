@@ -14,6 +14,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -97,6 +98,7 @@ public class HomeActivity extends AppCompatActivity {
                 do {
 
                     int id = cursor.getInt(0);
+                    Log.i("my_log", "initImageBitmap: Id: >> " + id);
                     String name = cursor.getString(1);
                     String desc = cursor.getString(2);
                     String imieS = cursor.getString(3);

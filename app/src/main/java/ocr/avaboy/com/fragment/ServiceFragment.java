@@ -4,6 +4,7 @@ package ocr.avaboy.com.fragment;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -30,6 +31,7 @@ import java.util.List;
 import ocr.avaboy.com.Config;
 import ocr.avaboy.com.R;
 import ocr.avaboy.com.SQLiteHelper;
+import ocr.avaboy.com.Util;
 import ocr.avaboy.com.adapters.ServiceDetailRecyclerViewAdapter;
 import ocr.avaboy.com.data.Singleton;
 import ocr.avaboy.com.model.ServiceDetail;
@@ -117,19 +119,23 @@ public class ServiceFragment extends BaseFragment {
 
             sqLiteHelper.insertDataDetail("Check My Number (*1#)", "*1#", 3);
             sqLiteHelper.insertDataDetail("Check My Number (#1#)", "#1#", 3);
+            sqLiteHelper.insertDataDetail("Check My Number (#2#)", "#2#", 3);
             sqLiteHelper.insertDataDetail("Call Center (812)", "812", 3);
 
             //Smart
             sqLiteHelper.insertDataDetail("Check internal balance (*656*0#)", "*656*0#", 2);
             sqLiteHelper.insertDataDetail("Check external balance (*888#)", "*888#", 2);
-            sqLiteHelper.insertDataDetail("Power+ $1-$125 (*700*100#)", "*700*100#", 2);
-            sqLiteHelper.insertDataDetail("Check Power+ balance (*700*888#)", "*700*888#", 2);
+            sqLiteHelper.insertDataDetail("Smart Loan $0.50 (*911#)", "*911#", 2);
             sqLiteHelper.insertDataDetail("Exchange $1 (*656*10#)", "*656*10#", 2);
             sqLiteHelper.insertDataDetail("Exchange $3 (*656*20#)", "*656*20#", 2);
             sqLiteHelper.insertDataDetail("Exchange $8 (*656*50#)", "*656*50#", 2);
             sqLiteHelper.insertDataDetail("Exchange $30 (*656*100#)", "*656*100#", 2);
             sqLiteHelper.insertDataDetail("Exchange $60 (*656*200#)", "*656*200#", 2);
-            sqLiteHelper.insertDataDetail("Smart Loan $0.50 (*911#)", "*911#", 2);
+
+            sqLiteHelper.insertDataDetail("TalkLikeCrazy $2(120min/day) (*015*200#)", "*015*200#", 2);
+            sqLiteHelper.insertDataDetail("TalkLikeCrazy $3.5(150min/day) (*015*350#)", "*015*350#", 2);
+            sqLiteHelper.insertDataDetail("To unsubscribe TalkLikeCrazy (*015*0#)", "*015*0#", 2);
+
             sqLiteHelper.insertDataDetail("Check My Number (*887#)", "*887#", 2);
             sqLiteHelper.insertDataDetail("Call Center (888)", "888", 2);
 
@@ -145,7 +151,6 @@ public class ServiceFragment extends BaseFragment {
 
             sqLiteHelper.insertDataDetail("Check My Number (*99#)", "*99#", 1);
             sqLiteHelper.insertDataDetail("Call Center (1777)", "1777", 1);
-
 
         }
     }
@@ -171,7 +176,11 @@ public class ServiceFragment extends BaseFragment {
                 Intent smsIntent = new Intent(Intent.ACTION_VIEW);
                 smsIntent.putExtra("sms_body", imieNumber);
                 smsIntent.setType("vnd.android-dir/mms-sms");
-                startActivity(smsIntent);
+                try {
+                    startActivity(smsIntent);
+                }catch (ActivityNotFoundException exc){
+                    Toast.makeText(mContext,exc.getMessage(),Toast.LENGTH_SHORT).show();
+                }
             } else {
                 Toast.makeText(mContext, getResources().getString(R.string.empty), Toast.LENGTH_SHORT).show();
             }

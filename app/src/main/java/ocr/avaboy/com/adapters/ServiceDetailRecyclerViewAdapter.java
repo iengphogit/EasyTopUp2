@@ -66,25 +66,28 @@ public class ServiceDetailRecyclerViewAdapter extends RecyclerView.Adapter<Servi
             }
         });
 
+        /*
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity)mContext).registerForContextMenu(holder.view);
-                ((MainActivity)mContext).openContextMenu(holder.view);
+                v.setTag(holder.getAdapterPosition());
+                if(mContext != null){
+                    ((MainActivity)mContext).registerForContextMenu(holder.view);
+                    ((MainActivity)mContext).openContextMenu(holder.view);
+                }
             }
         });
+        */
 
         holder.view.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-
                 Log.i("my", "onLongClick: ");
                 v.setTag(holder.getAdapterPosition());
-                ((MainActivity)mContext).registerForContextMenu(holder.view);
-                ((MainActivity)mContext).openContextMenu(holder.view);
-
-
-
+                if(mContext != null) {
+                    ((MainActivity) mContext).registerForContextMenu(holder.view);
+                    ((MainActivity) mContext).openContextMenu(holder.view);
+                }
                 return true;
             }
         });
