@@ -59,59 +59,60 @@ public class HomeActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowCustomEnabled(true);
 
             ImageView swtich = actionBar.findViewById(R.id.option_menu);
-            if(doesDatabaseExist(this,Config.dbName1)){
-                swtich.setVisibility(View.VISIBLE);
-                swtich.setImageDrawable(getResources().getDrawable(R.drawable.ic_phonelink_setup_white_24dp));
-                swtich.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
-                        builder.setTitle("Choose Database");
-
-                        int selectedId;
-                        if(Config.currentDBName.equals(Config.dbName1)){
-                            selectedId = 0;
-                        }else {
-                            selectedId = 1;
-                        }
-
-                        builder.setSingleChoiceItems(databases, selectedId, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                if (which == 0){
-                                    Util.setSharepreference(Config.DATA_BASE_NAME, Config.dbName1,getApplicationContext());
-                                    Config.currentDBName = Util.getSharepreference(Config.DATA_BASE_NAME, getApplicationContext());
-                                }else if(which == 1){
-                                    Util.setSharepreference(Config.DATA_BASE_NAME, Config.dbName2,getApplicationContext());
-                                    Config.currentDBName = Util.getSharepreference(Config.DATA_BASE_NAME, getApplicationContext());
-                                }
-                            }
-                        });
-
-                        builder.setPositiveButton("SET", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                initImageBitmap();
-                                dialog.dismiss();
-                            }
-                        });
-
-                        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-
-                        builder.show();
-
-                    }
-                });
-            }else{
-                swtich.setVisibility(View.GONE);
-                swtich.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_white_24dp));
-            }
+            swtich.setVisibility(View.INVISIBLE);
+//            if(doesDatabaseExist(this,Config.dbName1)){
+//                swtich.setVisibility(View.INVISIBLE);
+//                swtich.setImageDrawable(getResources().getDrawable(R.drawable.ic_phonelink_setup_white_24dp));
+//                swtich.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//
+//                        AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
+//                        builder.setTitle("Choose Database");
+//
+//                        int selectedId;
+//                        if(Config.currentDBName.equals(Config.dbName1)){
+//                            selectedId = 0;
+//                        }else {
+//                            selectedId = 1;
+//                        }
+//
+//                        builder.setSingleChoiceItems(databases, selectedId, new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                if (which == 0){
+//                                    Util.setSharepreference(Config.DATA_BASE_NAME, Config.dbName1,getApplicationContext());
+//                                    Config.currentDBName = Util.getSharepreference(Config.DATA_BASE_NAME, getApplicationContext());
+//                                }else if(which == 1){
+//                                    Util.setSharepreference(Config.DATA_BASE_NAME, Config.dbName2,getApplicationContext());
+//                                    Config.currentDBName = Util.getSharepreference(Config.DATA_BASE_NAME, getApplicationContext());
+//                                }
+//                            }
+//                        });
+//
+//                        builder.setPositiveButton("SET", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                initImageBitmap();
+//                                dialog.dismiss();
+//                            }
+//                        });
+//
+//                        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                dialog.dismiss();
+//                            }
+//                        });
+//
+//                        builder.show();
+//
+//                    }
+//                });
+//            }else{
+//                swtich.setVisibility(View.GONE);
+//                swtich.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_white_24dp));
+//            }
 
         }
 

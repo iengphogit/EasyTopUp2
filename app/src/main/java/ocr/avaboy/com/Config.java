@@ -7,7 +7,6 @@ import android.content.Context;
  */
 
 public class Config {
-    public static Context mContext;
 
     public static int imieLength = 14;
     public static String imieEnd = "#";
