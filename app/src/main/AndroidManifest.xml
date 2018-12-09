@@ -26,7 +26,7 @@
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="@string/banner_ad_unit_id"/>
+            android:value="ca-app-pub-9717530251283322~7326772295"/>
 
         <meta-data
             android:name="com.google.android.gms.vision.DEPENDENCIES"

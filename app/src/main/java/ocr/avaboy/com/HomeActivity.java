@@ -127,7 +127,7 @@ public class HomeActivity extends AppCompatActivity {
         initDB();
         initImageBitmap();
 
-        MobileAds.initialize(this, getResources().getString(R.string.banner_ad_unit_id));
+//        MobileAds.initialize(this,"ca-app-pub-9717530251283322~7326772295");
         AdView mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);

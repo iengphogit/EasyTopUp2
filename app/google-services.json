@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1077938999395",
+    "firebase_url": "https://etu-application-2.firebaseio.com",
+    "project_id": "etu-application-2",
+    "storage_bucket": "etu-application-2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1077938999395:android:db88b82f4ceb29e8",
+        "android_client_info": {
+          "package_name": "com.ieng.ilsp.eyetopup4"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1077938999395-mtdtro1980ql9gtbkmma893cr1935dnt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ieng.ilsp.eyetopup4",
+            "certificate_hash": "90b33a3d1342d16f34413d19370e0e3b57439c3b"
+          }
+        },
+        {
+          "client_id": "1077938999395-gbocdl782ig2mem1db7vc4347hhpdor7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAjYp0tjQcO-NZ52nqhjwhSqnpwaeswxo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1077938999395-gbocdl782ig2mem1db7vc4347hhpdor7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -14,6 +15,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -32,6 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ocr.avaboy.com.Config;
+import ocr.avaboy.com.MainActivity;
 import ocr.avaboy.com.R;
 import ocr.avaboy.com.SQLiteHelper;
 import ocr.avaboy.com.Util;
@@ -180,7 +183,7 @@ public class ServiceFragment extends BaseFragment {
                 smsIntent.putExtra("sms_body", imieNumber);
                 smsIntent.setType("vnd.android-dir/mms-sms");
                 try {
-                    startActivity(smsIntent);
+                    this.confirmAlert(smsIntent, "Send number", "Are you sure to send the number?");
                 }catch (ActivityNotFoundException exc){
                     Toast.makeText(mContext,exc.getMessage(),Toast.LENGTH_SHORT).show();
                 }
@@ -198,13 +201,35 @@ public class ServiceFragment extends BaseFragment {
         if(isPhoneCallPermission()) {
             if (imieNumber != null && !imieNumber.isEmpty()) {
                 Intent intent = new Intent(Intent.ACTION_CALL, ussdToCallableUri(imieNumber));
-                startActivity(intent);
+                this.confirmAlert(intent, "Dial number", "Are you sure to make a dial?");
             } else {
                 Toast.makeText(mContext, getResources().getString(R.string.empty_call), Toast.LENGTH_SHORT).show();
             }
         }else{
             requestPhoneCallPermission();
         }
+    }
+
+    private void confirmAlert(final Intent intent, String title, String message){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                startActivity(intent);
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        builder.show();
     }
 
 

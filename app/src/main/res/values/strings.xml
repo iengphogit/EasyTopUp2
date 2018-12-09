@@ -28,7 +28,7 @@
     <string name="empty">Sorry you can\'t send empty message</string>
     <string name="empty_call">Sorry you can\'t dial an empty service number</string>
     <string name="add_new_service">Add new service</string>
-    <string name="banner_ad_unit_id">ca-app-pub-9717530251283322/8803505493</string>
+    <string name="app_ad_unit_id">ca-app-pub-9717530251283322~7326772295</string>
 
     <string-array name="database">
         <item>Old Database</item>
