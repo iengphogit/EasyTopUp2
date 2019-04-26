@@ -217,36 +217,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         builder.show();
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-
-        switch (requestCode) {
-            case TopUpFragment.REQUEST_CAMERA_CODE:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    ((TopUpFragment) baseFragment).startOcrCamera();
-                } else {
-                    snackAlert();
-                }
-                break;
-
-            case TopUpFragment.REQUEST_SEND_SMS_CODE:
-                ((TopUpFragment) baseFragment).sendSmsIntent();
-                break;
-
-            case TopUpFragment.REQUEST_CALL_PHONE_CODE:
-                ((TopUpFragment) baseFragment).callPhoneIntent();
-                break;
-
-            case ServiceFragment.REQUEST_SEND_SMS_CODE:
-                ((ServiceFragment) baseFragment).sendSmsIntent(((ServiceFragment) baseFragment).currentService.getServiceNum());
-                break;
-
-            case ServiceFragment.REQUEST_CALL_PHONE_CODE:
-                ((ServiceFragment) baseFragment).callPhoneIntent(((ServiceFragment) baseFragment).currentService.getServiceNum());
-                break;
-
-        }
-    }
 
     private void snackAlert() {
         Snackbar snackbar = Snackbar.make(rootView, "PERMISSION", Snackbar.LENGTH_LONG)

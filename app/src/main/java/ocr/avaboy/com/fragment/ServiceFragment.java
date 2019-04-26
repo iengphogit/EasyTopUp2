@@ -1,19 +1,14 @@
 package ocr.avaboy.com.fragment;
 
 
-import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -21,9 +16,6 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -31,13 +23,10 @@ import android.widget.Toast;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.List;
 
 import ocr.avaboy.com.Config;
-import ocr.avaboy.com.MainActivity;
 import ocr.avaboy.com.R;
 import ocr.avaboy.com.SQLiteHelper;
-import ocr.avaboy.com.Util;
 import ocr.avaboy.com.adapters.ServiceDetailRecyclerViewAdapter;
 import ocr.avaboy.com.data.Singleton;
 import ocr.avaboy.com.model.ServiceDetail;
@@ -55,13 +44,9 @@ public class ServiceFragment extends BaseFragment {
     private Context mContext;
     public ServiceDetail currentService = null;
 
-
-    public static final int REQUEST_CALL_PHONE_CODE = 103;
-    public static final int REQUEST_SEND_SMS_CODE = 104;
-
     public static BaseFragment newInstance() {
         Bundle args = new Bundle();
-            fragment = new ServiceFragment();
+        fragment = new ServiceFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -80,7 +65,7 @@ public class ServiceFragment extends BaseFragment {
         detailRecyclerView.addItemDecoration(new DividerItemDecoration(inflater.getContext(), LinearLayoutManager.VERTICAL));
         serviceDetails = new ArrayList<>();
         adapter = new ServiceDetailRecyclerViewAdapter(serviceDetails, inflater.getContext());
-        detailRecyclerView.setLayoutManager( new LinearLayoutManager(inflater.getContext()));
+        detailRecyclerView.setLayoutManager(new LinearLayoutManager(inflater.getContext()));
         detailRecyclerView.setAdapter(adapter);
         getData();
         return view;
@@ -89,7 +74,7 @@ public class ServiceFragment extends BaseFragment {
 
     public void getData() {
         String strId = String.valueOf(Singleton.getInstance().getCurrentCompany().getId());
-        Cursor cursor1 = sqLiteHelper.getData("SELECT *FROM tbl_company_detail WHERE company_id=" + strId );
+        Cursor cursor1 = sqLiteHelper.getData("SELECT *FROM tbl_company_detail WHERE company_id=" + strId);
         int c = 1;
         serviceDetails.clear();
         while (cursor1.moveToNext()) {
@@ -107,7 +92,7 @@ public class ServiceFragment extends BaseFragment {
     }
 
 
-    private void initData(){
+    private void initData() {
 
         final Cursor cursor = sqLiteHelper.getData("SELECT *FROM tbl_company_detail WHERE company_id=1");
         cursor.moveToNext();
@@ -176,41 +161,13 @@ public class ServiceFragment extends BaseFragment {
         return Uri.parse(uriSting.toString());
     }
 
-    public void sendSmsIntent(String imieNumber) {
-        if(isSendSMSPermission()) {
-            if (imieNumber != null && !imieNumber.isEmpty()) {
-                Intent smsIntent = new Intent(Intent.ACTION_VIEW);
-                smsIntent.putExtra("sms_body", imieNumber);
-                smsIntent.setType("vnd.android-dir/mms-sms");
-                try {
-                    this.confirmAlert(smsIntent, "Send number", "Are you sure to send the number?");
-                }catch (ActivityNotFoundException exc){
-                    Toast.makeText(mContext,exc.getMessage(),Toast.LENGTH_SHORT).show();
-                }
-            } else {
-                Toast.makeText(mContext, getResources().getString(R.string.empty), Toast.LENGTH_SHORT).show();
-            }
-        }else {
-            requestSendSMSPermission();
-        }
-
-    }
-
     @SuppressLint("MissingPermission")
     public void callPhoneIntent(String imieNumber) {
-        if(isPhoneCallPermission()) {
-            if (imieNumber != null && !imieNumber.isEmpty()) {
-                Intent intent = new Intent(Intent.ACTION_CALL, ussdToCallableUri(imieNumber));
-                this.confirmAlert(intent, "Dial number", "Are you sure to make a dial?");
-            } else {
-                Toast.makeText(mContext, getResources().getString(R.string.empty_call), Toast.LENGTH_SHORT).show();
-            }
-        }else{
-            requestPhoneCallPermission();
-        }
+        Intent intent = new Intent(Intent.ACTION_DIAL, ussdToCallableUri(imieNumber));
+        this.confirmAlert(intent, "Dial number", "Are you sure to make a dial?");
     }
 
-    private void confirmAlert(final Intent intent, String title, String message){
+    private void confirmAlert(final Intent intent, String title, String message) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setTitle(title);
@@ -230,29 +187,6 @@ public class ServiceFragment extends BaseFragment {
         });
 
         builder.show();
-    }
-
-
-    private boolean isPhoneCallPermission() {
-        return ActivityCompat.checkSelfPermission(mContext.getApplicationContext(),
-                Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED;
-    }
-
-    private void requestPhoneCallPermission() {
-        ActivityCompat.requestPermissions((Activity) mContext,
-                new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL_PHONE_CODE
-        );
-    }
-
-    private boolean isSendSMSPermission() {
-        return ActivityCompat.checkSelfPermission(mContext.getApplicationContext(),
-                Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED;
-    }
-
-    private void requestSendSMSPermission() {
-        ActivityCompat.requestPermissions((Activity) mContext,
-                new String[]{Manifest.permission.SEND_SMS}, REQUEST_SEND_SMS_CODE
-        );
     }
 
 

@@ -49,10 +49,7 @@ public class ServiceDetailRecyclerViewAdapter extends RecyclerView.Adapter<Servi
         holder.sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity mainActivity = ((MainActivity)mContext);
-                ServiceFragment serviceFragment = (ServiceFragment) mainActivity.baseFragment;
-                serviceFragment.currentService = serviceDetail;
-                serviceFragment.sendSmsIntent(serviceDetail.getServiceNum());
+
             }
         });
 

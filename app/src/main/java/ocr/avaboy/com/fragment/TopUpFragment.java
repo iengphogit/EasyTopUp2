@@ -32,10 +32,10 @@ import com.google.android.gms.vision.text.TextRecognizer;
 
 import java.io.IOException;
 
-import ocr.avaboy.com.model.Company;
 import ocr.avaboy.com.R;
 import ocr.avaboy.com.data.Singleton;
 import ocr.avaboy.com.listener.CameraListener;
+import ocr.avaboy.com.model.Company;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -50,7 +50,6 @@ public class TopUpFragment extends BaseFragment implements CameraListener {
     private TextView mTextView;
     public static final int REQUEST_CAMERA_CODE = 202;
     public static final int REQUEST_CALL_PHONE_CODE = 203;
-    public static final int REQUEST_SEND_SMS_CODE = 204;
 
     private Company cp = Singleton.getInstance().getCurrentCompany();
     private final String imieS = cp.getImieStart().isEmpty() ? "N/A" : cp.getImieStart();
@@ -86,21 +85,9 @@ public class TopUpFragment extends BaseFragment implements CameraListener {
         return Uri.parse(uriSting.toString());
     }
 
-    public void sendSmsIntent() {
-        if (imieNumber != null && !imieNumber.equals(setDefaultDigits())) {
-            Intent smsIntent = new Intent(Intent.ACTION_VIEW);
-            smsIntent.putExtra("sms_body", mTextView.getText().toString());
-            smsIntent.setType("vnd.android-dir/mms-sms");
-            startActivity(smsIntent);
-        } else {
-            Toast.makeText(mContext, getResources().getString(R.string.invalid_top_up_code), Toast.LENGTH_SHORT).show();
-        }
-
-    }
-
     public void callPhoneIntent() {
         if (imieNumber != null && !imieNumber.equals(setDefaultDigits())) {
-            Intent intent = new Intent(Intent.ACTION_CALL, ussdToCallableUri(mTextView.getText().toString()));
+            Intent intent = new Intent(Intent.ACTION_DIAL, ussdToCallableUri(mTextView.getText().toString()));
             startActivity(intent);
         } else {
             Toast.makeText(mContext, getResources().getString(R.string.invalid_top_up_code), Toast.LENGTH_SHORT).show();
@@ -138,12 +125,8 @@ public class TopUpFragment extends BaseFragment implements CameraListener {
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isSendSMSPermission()) {
-                    //Send Intent
-                    sendSmsIntent();
-                } else {
-                    requestSendSMSPermission();
-                }
+
+                Toast.makeText(mContext, "Coming soon...", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -151,12 +134,8 @@ public class TopUpFragment extends BaseFragment implements CameraListener {
         callBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isPhoneCallPermission()) {
-                    //Call Intent
-                    showDialog();
-                } else {
-                    requestPhoneCallPermission();
-                }
+                //Call Intent
+                showDialog();
             }
         });
 
@@ -330,28 +309,6 @@ public class TopUpFragment extends BaseFragment implements CameraListener {
     private void requestCameraPermission() {
         ActivityCompat.requestPermissions((Activity) mContext,
                 new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_CODE
-        );
-    }
-
-    private boolean isPhoneCallPermission() {
-        return ActivityCompat.checkSelfPermission(mContext.getApplicationContext(),
-                Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED;
-    }
-
-    private void requestPhoneCallPermission() {
-        ActivityCompat.requestPermissions((Activity) mContext,
-                new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL_PHONE_CODE
-        );
-    }
-
-    private boolean isSendSMSPermission() {
-        return ActivityCompat.checkSelfPermission(mContext.getApplicationContext(),
-                Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED;
-    }
-
-    private void requestSendSMSPermission() {
-        ActivityCompat.requestPermissions((Activity) mContext,
-                new String[]{Manifest.permission.SEND_SMS}, REQUEST_SEND_SMS_CODE
         );
     }
 
