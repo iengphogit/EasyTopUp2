@@ -94,6 +94,23 @@ public class TopUpFragment extends BaseFragment implements CameraListener {
         }
     }
 
+    public void sendMessageIntent(String body, Context context) {
+        if (imieNumber != null && !imieNumber.equals(setDefaultDigits())) {
+
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.putExtra("sms_body", body);
+            intent.setType("vnd.android-dir/mms-sms");
+            if (intent.resolveActivity(context.getPackageManager()) != null) {
+                startActivity(intent);
+            } else {
+                Toast.makeText(context, "Something went wrong", Toast.LENGTH_SHORT).show();
+            }
+
+        } else {
+            Toast.makeText(mContext, getResources().getString(R.string.invalid_top_up_code), Toast.LENGTH_SHORT).show();
+        }
+    }
+
     public void showDialog() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
         alertDialog.setTitle(getResources().getString(R.string.make_a_dail_msg_question));
@@ -126,7 +143,9 @@ public class TopUpFragment extends BaseFragment implements CameraListener {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(mContext, "Coming soon...", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(mContext, "Coming soon...", Toast.LENGTH_SHORT).show();
+                sendMessageIntent(mTextView.getText().toString(), v.getContext());
+
             }
         });
 

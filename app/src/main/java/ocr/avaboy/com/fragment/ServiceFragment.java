@@ -1,7 +1,6 @@
 package ocr.avaboy.com.fragment;
 
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -161,10 +160,22 @@ public class ServiceFragment extends BaseFragment {
         return Uri.parse(uriSting.toString());
     }
 
-    @SuppressLint("MissingPermission")
     public void callPhoneIntent(String imieNumber) {
         Intent intent = new Intent(Intent.ACTION_DIAL, ussdToCallableUri(imieNumber));
         this.confirmAlert(intent, "Dial number", "Are you sure to make a dial?");
+    }
+
+    public void sendMessageIntent(String body, Context context) {
+
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.putExtra("sms_body", body);
+        intent.setType("vnd.android-dir/mms-sms");
+        if (intent.resolveActivity(context.getPackageManager()) != null) {
+            startActivity(intent);
+        } else {
+            Toast.makeText(context, "Something went wrong", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     private void confirmAlert(final Intent intent, String title, String message) {

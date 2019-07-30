@@ -1,8 +1,6 @@
 package ocr.avaboy.com.adapters;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,13 +12,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import ocr.avaboy.com.CRUDItemActivity;
-import ocr.avaboy.com.fragment.ServiceFragment;
-import ocr.avaboy.com.model.Company;
-import ocr.avaboy.com.HomeActivity;
 import ocr.avaboy.com.MainActivity;
 import ocr.avaboy.com.R;
-import ocr.avaboy.com.data.Singleton;
+import ocr.avaboy.com.fragment.ServiceFragment;
 import ocr.avaboy.com.model.ServiceDetail;
 
 public class ServiceDetailRecyclerViewAdapter extends RecyclerView.Adapter<ServiceDetailRecyclerViewAdapter.ViewHolder> {
@@ -49,6 +43,10 @@ public class ServiceDetailRecyclerViewAdapter extends RecyclerView.Adapter<Servi
         holder.sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MainActivity mainActivity = ((MainActivity) mContext);
+                ServiceFragment serviceFragment = (ServiceFragment) mainActivity.baseFragment;
+                serviceFragment.currentService = serviceDetail;
+                serviceFragment.sendMessageIntent(serviceDetail.getServiceNum(), v.getContext());
 
             }
         });
@@ -56,7 +54,7 @@ public class ServiceDetailRecyclerViewAdapter extends RecyclerView.Adapter<Servi
         holder.callBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity mainActivity = ((MainActivity)mContext);
+                MainActivity mainActivity = ((MainActivity) mContext);
                 ServiceFragment serviceFragment = (ServiceFragment) mainActivity.baseFragment;
                 serviceFragment.currentService = serviceDetail;
                 serviceFragment.callPhoneIntent(serviceDetail.getServiceNum());
@@ -69,8 +67,8 @@ public class ServiceDetailRecyclerViewAdapter extends RecyclerView.Adapter<Servi
             public boolean onLongClick(View v) {
                 Log.i("my", "onLongClick: ");
                 v.setTag(holder.getAdapterPosition());
-                if(mContext != null) {
-                    MainActivity mainActivity = ((MainActivity)mContext);
+                if (mContext != null) {
+                    MainActivity mainActivity = ((MainActivity) mContext);
                     ServiceFragment serviceFragment = (ServiceFragment) mainActivity.baseFragment;
                     serviceFragment.currentService = serviceDetail;
                     ((MainActivity) mContext).registerForContextMenu(holder.view);
